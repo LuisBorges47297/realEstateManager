@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Real Estate Manager</title>
+    <link rel="stylesheet" th:href="@{/style/main.css}">
+</head>
+
+<body>
+    <header>
+        <a href="/index" class="logo"> <img src="images/slogan.jpg" alt="logo"/></a>
+    </header>
+
+    <div class="main-content"> <!-- wrapper flex -->
+        <aside>
+            <h2>Procurar Imóveis</h2>
+            <form th:action="@{/properties/filter}" method="get" class="filter-form">
+                <div class="form-group">
+                    <label for="location">Localização:</label>
+                    <select id="location name="location>
+                    <option value="Evora">Evora</option>
+                    <option value="Lisboa">Lisboa</option>
+                    <option value="Porto">Porto</option>
+                </select>
+                </div>
+                <div class="form-group">
+                    <label for="bedrooms">Quartos:</label>
+                    <input type="number" id="bedrooms" name="bedrooms" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="maxPrice">Preço Máximo (€):</label>
+                    <input type="number" id="maxPrice" name="maxPrice" min="0" step="1">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="button">Pesquisar</button>
+                </div>
+
+                <div th:if="${message}">
+                    <p th:text="${message}" style="color: red;"></p>
+                </div>
+            </form>
+        </aside>
+
+        <div class="container">
+            <h2>Bem-vindo ao Real Estate Manager 🏡</h2>
+            <p>Encontre, compre, venda ou alugue os melhores imóveis com facilidade.</p>
+
+            <a href="/add-property" class="button">Adicionar imóveis</a>
+            <a href="/properties" class="button">Ver Imóveis</a>
+            <a href="/login" class="button">Login</a>
+            <a href="/register" class="button">Registar</a>
+        </div>
+    </div>
+</body>
+
+</html>

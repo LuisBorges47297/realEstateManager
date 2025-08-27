@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+header {
+    padding: 40px;
+}
+
+.logo img {
+    height: 110px;
+    width: 110px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.main-content {
+    display: flex;
+    padding: 40px;
+    gap: 10px; /* espaço entre o aside e o container */
+}
+
+/* aside fixado à esquerda */
+aside {
+    background: #f2f2f2;
+    border-radius: 10px;
+    width: 250px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
