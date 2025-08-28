@@ -8,6 +8,10 @@
 <body>
     <header>
         <a href="/index" class="logo"> <img src="images/slogan.jpg" alt="logo"/></a>
+        <nav class="nav-buttons">
+            <a href="/login" class="button">Login</a>
+            <a href="/register" class="button">Registar</a>
+        </nav>
     </header>
 
     <div class="main-content"> <!-- wrapper flex -->
@@ -16,7 +20,7 @@
             <form th:action="@{/properties/filter}" method="get" class="filter-form">
                 <div class="form-group">
                     <label for="location">Localização:</label>
-                    <select id="location name="location>
+                    <select id="location" name="location">
                     <option value="Evora">Evora</option>
                     <option value="Lisboa">Lisboa</option>
                     <option value="Porto">Porto</option>
@@ -46,8 +50,6 @@
 
             <a href="/add-property" class="button">Adicionar imóveis</a>
             <a href="/properties" class="button">Ver Imóveis</a>
-            <a href="/login" class="button">Login</a>
-            <a href="/register" class="button">Registar</a>
         </div>
     </div>
 </body>

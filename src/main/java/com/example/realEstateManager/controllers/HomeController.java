@@ -32,6 +32,11 @@ public class HomeController {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    @GetMapping("/")
+    public String home() {
+        return "index"; // nome do template index.html
+    }
+
     @GetMapping("/index")
     public String index() {
         return "index"; // Vai procurar por src/main/resources/templates/index.html
