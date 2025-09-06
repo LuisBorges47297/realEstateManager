@@ -17,6 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.realEstateManager.domain.properties.Property;
 import com.example.realEstateManager.domain.properties.Property.PropertyRowMapper;
 import com.example.realEstateManager.domain.user.User;
+import com.example.realEstateManager.domain.user.User.UserRowMapper;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
@@ -100,6 +103,33 @@ public class HomeController {
     public String login() {
         return "login";
     }
+
+    @PostMapping("/login")
+    public String loginUser(@RequestParam String email,
+                            @RequestParam String password,
+                            HttpSession session,
+                            Model model) {
+        String sql = "SELECT * FROM users WHERE email = ?";
+        List<User> users = jdbcTemplate.query(sql, new UserRowMapper(), email);
+
+        if (users.isEmpty()) {
+            model.addAttribute("error", "Utilizador não encontrado.");
+            return "login";
+        }
+
+        User user = users.get(0);
+
+        // Verifica a password
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            model.addAttribute("error", "Password incorreta.");
+            return "login";
+        }
+
+        // Login bem sucedido → guarda o user na sessão
+        session.setAttribute("loggedUser", user);
+        return "redirect:/index";
+    }
+
 
     @GetMapping("/register")
     public String register() {
