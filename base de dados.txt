@@ -1,0 +1,49 @@
+-- Criar a base de dados
+CREATE DATABASE real_estate;
+\c real_estate
+
+-- Tabela de Utilizadores
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Tabela de Propriedades
+CREATE TABLE properties (
+    id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    title VARCHAR(150) NOT NULL,
+    description TEXT,
+    price DECIMAL(12, 2) NOT NULL,
+    location VARCHAR(100) NOT NULL,
+    property_type VARCHAR(50), -- Ex: 'Casa', 'Apartamento'
+    bedrooms INT,
+    bathrooms INT,
+    area INT, -- m²
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Tabela de Imagens das Propriedades
+CREATE TABLE property_images (
+    id SERIAL PRIMARY KEY,
+    property_id INT NOT NULL,
+    image_url TEXT NOT NULL,
+    uploaded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (property_id) REFERENCES properties(id)
+);
+
+-- Tabela de Pedidos de Informação
+CREATE TABLE inquiries (
+    id SERIAL PRIMARY KEY,
+    property_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    message TEXT,
+    sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (property_id) REFERENCES properties(id)
+);
+
