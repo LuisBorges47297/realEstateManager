@@ -1,5 +1,6 @@
 package com.example.realEstateManager.controllers;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,17 +87,23 @@ public class HomeController {
         for (MultipartFile image : images) {
             if (!image.isEmpty()) {
                 String fileName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
-                String filePath = "uploads/" + fileName;
-                image.transferTo(new java.io.File(filePath));
+                String uploadDir = System.getProperty("user.dir") + "/uploads";
+                File directory = new File(uploadDir);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                String filePath = uploadDir + "/" + fileName;
+                image.transferTo(new File(filePath));
 
                 jdbcTemplate.update(
                     "INSERT INTO property_images (property_id, image_url) VALUES (?, ?)",
-                    propertyId, filePath
+                    propertyId, "/uploads/" + filePath
                 );
             }
         }
 
-        return "redirect:/properties"; // volta à lista de propriedades
+        return "redirect:/add-property"; // volta add propriedades
     }
 
     @GetMapping("/login")
